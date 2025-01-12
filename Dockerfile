@@ -1,17 +1,17 @@
 # Use a base image
 FROM python:3.11.9
 
-# Set the working directory
-WORKDIR /app
+# Set the working directory in the container to the root directory
+WORKDIR /
 
-# Copy the requirements file
-COPY requirements.txt .
-
-# Install dependencies
-RUN pip install -r requirements.txt
-
-# Copy the rest of the code
+# Copy the current directory contents into the container
 COPY . .
 
-# Command to run the application
-CMD ["python", "your_script.py"]  # Replace with the actual script to run
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
